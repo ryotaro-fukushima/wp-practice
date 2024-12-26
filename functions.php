@@ -5,8 +5,6 @@ function enqueue_custom_styles() {
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_styles');
 
-
-
 // メニューをサポートする
 function mytheme_setup() {
     register_nav_menus(array(
