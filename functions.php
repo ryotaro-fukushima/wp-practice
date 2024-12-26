@@ -46,4 +46,3 @@ add_action('template_redirect', function() {
         }
     }
 });
-
