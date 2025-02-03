@@ -1,0 +1,36 @@
+name: Release to Develop Environment  # ジョブの名前
+on:
+  push:
+    branches:
+      - main  # mainブランチに変更がプッシュされたときに実行
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy:
+    name: Deploy to Xserver
+    runs-on: ubuntu-latest # 実行環境
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # GitHubリポジトリのコードをクローン
+
+      - name: "Debug: Check working directory" # 現在のディレクトリ確認
+        run: |
+          echo "Current Directory:"
+          pwd
+          echo "Directory Contents:"
+          ls -la
+
+      - name: Set up SSH agent # SSHエージェントのセットアップ
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Deploy to Xserver using rsync # Xserverへデプロイ（rsyncを使用）
+        run: |
+          rsync -avz \
+          -e "ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT }}" \
+          "$GITHUB_WORKSPACE"/ \
+          ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/xs614444/xs614444.xsrv.jp/public_html/wp-content/themes/wp-practice
