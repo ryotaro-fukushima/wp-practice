@@ -34,6 +34,10 @@ h1 {
 }
 
 /* フォームスタイル */
+h2 {
+    text-align: center;
+}
+
 form p {
     margin-bottom: 15px;
 }
