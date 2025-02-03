@@ -5,7 +5,7 @@ get_header();
 
 <main>
     <section>
-        <h1><?php the_title(); ?></h1>
+        <h2><?php the_title(); ?></h2>
         <form action="<?php echo esc_url(home_url('/contact/')); ?>" method="post">
             <p>
                 <label for="name">お名前 (必須)</label><br>

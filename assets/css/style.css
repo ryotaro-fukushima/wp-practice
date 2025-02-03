@@ -22,6 +22,7 @@ section {
 
 a {
     text-decoration: none;
+    color: inherit;
 }
 
 /* 見出しスタイル */
