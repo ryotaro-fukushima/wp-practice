@@ -20,6 +20,10 @@ section {
     width: 100%;
 }
 
+a {
+    text-decoration: none;
+}
+
 /* 見出しスタイル */
 h1 {
     font-size: 24px;
