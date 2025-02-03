@@ -32,5 +32,6 @@ jobs:
         run: |
           rsync -avz \
           -e "ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT }}" \
+          --exclude='.git/' --exclude='.github/' --exclude='node_modules/' --exclude='.gitignore' \
           "$GITHUB_WORKSPACE"/ \
           ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/home/xs614444/xs614444.xsrv.jp/public_html/wp-content/themes/wp-practice
