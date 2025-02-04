@@ -55,3 +55,6 @@ add_action('template_redirect', function() {
     }
 });
 
+add_action('init', function() {
+    add_rewrite_rule('^finish/?$', 'index.php?pagename=finish', 'top');
+});
