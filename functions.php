@@ -22,27 +22,36 @@ add_action('after_setup_theme', 'mytheme_setup');
 
 add_action('template_redirect', function() {
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        // データの処理（例: メール送信）
+        // 送信データのバリデーション
         $name = sanitize_text_field($_POST['name']);
         $email = sanitize_email($_POST['email']);
         $message = sanitize_textarea_field($_POST['message']);
-        
-        // wp_mailによるメール送信処理（例）
-        $to = 'ryotaro.fukushima@prum.jp'; // 送信先メールアドレス
-        $subject = "お問い合わせフォーム: $name 様";
-        $headers = ['From: WordPress <no-reply@xs614444.xsrv.jp>'];
-        $body = "お名前: $name\nメールアドレス: $email\n\n$message";
-        
-        if (wp_mail($to, $subject, $body, $headers)) {
-            // リダイレクトを追加
-            wp_safe_redirect(home_url('/contact/?success=1')); // リダイレクト先を指定
+
+        // **確認画面に遷移する処理**
+        if (isset($_POST['confirm'])) {
+            // `confirm.php` に遷移
+            include(get_template_directory() . '/confirm.php');
             exit;
-        } else {
-            echo '<p>メール送信に失敗しました。</p>';
-            global $phpmailer;
-            echo '<pre>';
-            print_r($phpmailer);
-            echo '</pre>';
+        }
+
+        // **メール送信処理 (完了画面へ)**
+        if (isset($_POST['send'])) {
+            $to = 'ryotaro.fukushima@prum.jp';
+            $subject = "お問い合わせフォーム: $name 様";
+            $headers = ['From: WordPress <no-reply@xs614444.xsrv.jp>'];
+            $body = "お名前: $name\nメールアドレス: $email\n\n$message";
+
+            if (wp_mail($to, $subject, $body, $headers)) {
+                wp_safe_redirect(home_url('/finish/')); // 完了画面へ
+                exit;
+            } else {
+                echo '<p>メール送信に失敗しました。</p>';
+                global $phpmailer;
+                echo '<pre>';
+                print_r($phpmailer);
+                echo '</pre>';
+            }
         }
     }
 });
+
