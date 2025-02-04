@@ -1,5 +1,6 @@
 <?php
 /* Template Name: 完了画面 */
+session_start();
 get_header();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -7,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     exit;
 }
 
+// セッションデータの取得
 $name = isset($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
 $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
 $message = isset($_POST['message']) ? sanitize_textarea_field($_POST['message']) : '';
@@ -18,6 +20,12 @@ $headers = "From: $email\r\nReply-To: $email\r\n";
 $body = "お名前: $name\nメール: $email\n\n$message";
 
 wp_mail($to, $subject, $body, $headers);
+
+// **セッションデータを削除**
+unset($_SESSION['name']);
+unset($_SESSION['email']);
+unset($_SESSION['message']);
+session_destroy(); // セッションを完全に破棄
 ?>
 
 <main>
