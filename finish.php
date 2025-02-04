@@ -3,7 +3,7 @@
 get_header();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    wp_redirect(home_url('/contact/'));
+    wp_redirect(home_url('/contact'));
     exit;
 }
 

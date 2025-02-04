@@ -38,16 +38,22 @@ if (empty($name) || empty($email) || empty($message)) {
             <input type="hidden" name="name" value="<?php echo esc_attr($name); ?>">
             <input type="hidden" name="email" value="<?php echo esc_attr($email); ?>">
             <input type="hidden" name="message" value="<?php echo esc_textarea($message); ?>">
-            <button type="submit">送信する</button>
+
+            <div class="form-buttons">
+                <button type="submit">送信する</button>
+            </div>
         </form>
 
         <form action="<?php echo esc_url(home_url('/contact')); ?>" method="post">
             <input type="hidden" name="name" value="<?php echo esc_attr($name); ?>">
             <input type="hidden" name="email" value="<?php echo esc_attr($email); ?>">
             <input type="hidden" name="message" value="<?php echo esc_textarea($message); ?>">
-            <button type="submit">戻る</button>
+            <div class="form-buttons">
+                <button type="submit">戻る</button>
+            </div>
         </form>
     </section>
 </main>
+
 
 <?php get_footer(); ?>
