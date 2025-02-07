@@ -29,6 +29,7 @@ if (empty($name) || empty($email) || empty($message)) {
     <section>
         <h2>確認画面</h2>
         <form action="<?php echo esc_url(home_url('/finish')); ?>" method="post">
+        <?php var_dump(home_url('/finish')); ?>
             <p><strong>お名前:</strong> <?php echo esc_html($name); ?></p>
             <p><strong>メールアドレス:</strong> <?php echo esc_html($email); ?></p>
             <p><strong>お問い合わせ内容:</strong></p>
