@@ -72,3 +72,12 @@ add_action('template_include', function($template) {
     }
     return $template;
 });
+
+function disable_script_errors() {
+    echo '<script>
+        document.querySelector("form").addEventListener("submit", function(event) {
+            console.log("フォーム送信:", event);
+        });
+    </script>';
+}
+add_action("wp_footer", "disable_script_errors");
