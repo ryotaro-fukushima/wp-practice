@@ -1,18 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-session_start();
-get_header();
-
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo "リクエストがPOSTではないため、リダイレクトされます。";
-    wp_redirect(home_url('/contact'));
-    exit;
-}
-?>
-
-<?php
 /* Template Name: 完了画面 */
 session_start();
 get_header();
