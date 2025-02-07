@@ -7,6 +7,7 @@ get_header();
 echo "<h3>デバッグ情報</h3>";
 echo "<pre>";
 echo "REQUEST_METHOD: " . $_SERVER["REQUEST_METHOD"] . "\n";
+echo "Current URL: " . $_SERVER["REQUEST_URI"] . "\n";
 print_r($_POST);
 echo "</pre>";
 
