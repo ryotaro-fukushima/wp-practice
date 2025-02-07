@@ -44,7 +44,8 @@ add_action('template_redirect', function() {
             $body = "お名前: $name\nメールアドレス: $email\n\n$message";
 
             if (wp_mail($to, $subject, $body, $headers)) {
-                wp_safe_redirect(home_url('/finish')); // 完了画面へ
+                // 🔥 `wp_safe_redirect()` を削除して、直接 `finish.php` に移動
+                include(get_template_directory() . '/finish.php');
                 exit;
             } else {
                 echo '<p>メール送信に失敗しました。</p>';
@@ -56,6 +57,7 @@ add_action('template_redirect', function() {
         }
     }
 });
+
 
 add_action('init', function() {
     add_rewrite_rule('^finish/?$', 'index.php?finish=1', 'top');
