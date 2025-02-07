@@ -1,4 +1,6 @@
 <?php
+ob_start();
+
 // CSSを読み込む
 function enqueue_custom_styles() {
     wp_enqueue_style('custom-style', get_template_directory_uri() . '/assets/css/style.css', array(), '1.0', 'all');
