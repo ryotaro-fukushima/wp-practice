@@ -56,5 +56,17 @@ add_action('template_redirect', function() {
 });
 
 add_action('init', function() {
-    add_rewrite_rule('^finish/?$', 'index.php?pagename=finish', 'top');
+    add_rewrite_rule('^finish/?$', 'index.php?finish=1', 'top');
+});
+
+add_filter('query_vars', function($query_vars) {
+    $query_vars[] = 'finish';
+    return $query_vars;
+});
+
+add_action('template_include', function($template) {
+    if (get_query_var('finish') == 1) {
+        return get_template_directory() . '/finish.php';
+    }
+    return $template;
 });
