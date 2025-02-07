@@ -24,6 +24,16 @@ unset($_SESSION['message']);
 session_destroy();
 ?>
 
+<!-- GA4 計測スクリプト -->
+<script>
+window.onload = function() {
+    gtag('event', 'form_complete', {
+        'event_category': 'contact',
+        'event_label': 'finish_page'
+    });
+};
+</script>
+
 <main>
     <section>
         <h2>送信完了</h2>

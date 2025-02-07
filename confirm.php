@@ -40,7 +40,9 @@ if (empty($name) || empty($email) || empty($message)) {
             <input type="hidden" name="message" value="<?php echo esc_textarea($message); ?>">
 
             <div class="form-buttons">
-                <button type="submit">送信する</button>
+                <button type="submit" onclick="gtag('event', 'form_submit', {'event_category': 'contact', 'event_label': 'submit_button'});">
+                    送信する
+                </button>
             </div>
         </form>
 
