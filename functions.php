@@ -44,7 +44,7 @@ add_action('template_redirect', function() {
             $body = "お名前: $name\nメールアドレス: $email\n\n$message";
 
             if (wp_mail($to, $subject, $body, $headers)) {
-                wp_safe_redirect(home_url('/finish/')); // 完了画面へ
+                wp_safe_redirect(home_url('/finish')); // 完了画面へ
                 exit;
             } else {
                 echo '<p>メール送信に失敗しました。</p>';
