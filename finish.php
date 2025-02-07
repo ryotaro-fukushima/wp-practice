@@ -3,6 +3,13 @@
 session_start();
 get_header();
 
+// デバッグ用出力
+echo "<h3>デバッグ情報</h3>";
+echo "<pre>";
+echo "REQUEST_METHOD: " . $_SERVER["REQUEST_METHOD"] . "\n";
+print_r($_POST);
+echo "</pre>";
+
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     wp_redirect(home_url('/contact'));
     exit;
@@ -12,6 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
 $name = isset($_POST['name']) ? sanitize_text_field($_POST['name']) : '';
 $email = isset($_POST['email']) ? sanitize_email($_POST['email']) : '';
 $message = isset($_POST['message']) ? sanitize_textarea_field($_POST['message']) : '';
+
+// POSTデータが取得できているか確認
+if (empty($name) || empty($email) || empty($message)) {
+    echo "<p>エラー: 必須データが不足しています。リダイレクトせずに表示します。</p>";
+    exit;
+}
 
 // 送信処理（メール送信）
 $to = get_option('admin_email'); // WordPress管理者メール
