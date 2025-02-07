@@ -3,33 +3,25 @@
 session_start();
 get_header();
 
-// デバッグ用出力
-echo "<h3>デバッグ情報</h3>";
-echo "<pre>";
-echo "REQUEST_METHOD: " . $_SERVER["REQUEST_METHOD"] . "\n";
-echo "Current URL: " . $_SERVER["REQUEST_URI"] . "\n";
-print_r($_POST);
-echo "</pre>";
-
-// 一時的にリダイレクトを無効化（デバッグのため）
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo "<p style='color:red;'>エラー: POSTリクエストではありません。</p>";
-    exit; // リダイレクトせずに終了
+// `POST` 以外のリクエストは `contact.php` にリダイレクト
+if ($_SERVER["REQUEST_METHOD"] !== "POST" && !isset($_POST['send'])) {
+    wp_redirect(home_url('/contact'));
+    exit;
 }
 
-// 送信処理（メール送信）
-$to = get_option('admin_email'); // WordPress管理者メール
+// 送信処理
+$to = get_option('admin_email');
 $subject = "お問い合わせフォームからのメッセージ";
 $headers = "From: {$_POST['email']}\r\nReply-To: {$_POST['email']}\r\n";
 $body = "お名前: {$_POST['name']}\nメール: {$_POST['email']}\n\n{$_POST['message']}";
 
 wp_mail($to, $subject, $body, $headers);
 
-// セッションデータの削除
+// **セッションデータを削除**
 unset($_SESSION['name']);
 unset($_SESSION['email']);
 unset($_SESSION['message']);
-session_destroy(); // セッションを完全に破棄
+session_destroy();
 ?>
 
 <main>
